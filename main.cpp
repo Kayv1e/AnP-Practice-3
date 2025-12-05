@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <iostream>
 
 namespace topit
@@ -30,20 +31,31 @@ namespace topit
     p_t next(p_t) const override;
     p_t d;
   };
+
+  size_t points(const IDraw & d, p_t ** pts, size_t & s);
+  f_t frame(const p_t * pts, size_t s);
 }
 
 int main()
 {
+  using topit::p_t;
+  using topit::f_t;
   using topit::Dot;
   using topit::IDraw;
   int err = 0;
   IDraw * shps[3] = {};
+  p_t * pts = nullptr;
+  size_t s = 0;
   try {
     shps[0] = new Dot(0, 0);
     shps[1] = new Dot(5, 7);
     shps[2] = new Dot(-5, -2);
     // TODO:
     // get all dots from shapes
+    for (size_t i = 0; i < 3; ++i) {
+      s += points(*(shps[i]), &pts, s);
+    }
+    f_t fr = frame(pts, s);
     // count frame
     // make a canvas
     // - fill the canvas with '.'
@@ -55,6 +67,7 @@ int main()
     std::cerr << "Bad drawing\n";
   }
 
+  delete [] pts;
   delete shps[0];
   delete shps[1];
   delete shps[2];
