@@ -34,12 +34,39 @@ namespace topit
 
 int main()
 {
-  using topit::p_t;
-  p_t a{1, 0}, b{1, 0};
-  std::cout << (a == b) << "\n";
+  using topit::Dot;
+  using topit::IDraw;
+  int err = 0;
+  IDraw * shps[3] = {};
+  try {
+    shps[0] = new Dot(0, 0);
+    shps[1] = new Dot(5, 7);
+    shps[2] = new Dot(-5, -2);
+    // TODO:
+    // get all dots from shapes
+    // count frame
+    // make a canvas
+    // - fill the canvas with '.'
+    // draw all dots got from shapes
+    // - draw '#'
+    // display canvas
+  } catch (...) {
+    err = 2;
+    std::cerr << "Bad drawing\n";
+  }
+
+  delete shps[0];
+  delete shps[1];
+  delete shps[2];
+  return err;
 }
 
-topit::Dot(int x, int y):
+topit::Dot::Dot(p_t dd):
+  IDraw(),
+  d{dd}
+{}
+
+topit::Dot::Dot(int x, int y):
   IDraw(),
   d{x, y}
 {}
