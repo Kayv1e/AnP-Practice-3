@@ -34,6 +34,7 @@ namespace topit
 
   size_t points(const IDraw & d, p_t ** pts, size_t & s);
   f_t frame(const p_t * pts, size_t s);
+  char * canvas(f_t fr, char filler);
 }
 
 int main()
@@ -51,17 +52,15 @@ int main()
     shps[1] = new Dot(5, 7);
     shps[2] = new Dot(-5, -2);
     // TODO:
-    // get all dots from shapes
     for (size_t i = 0; i < 3; ++i) {
       s += points(*(shps[i]), &pts, s);
     }
     f_t fr = frame(pts, s);
-    // count frame
-    // make a canvas
-    // - fill the canvas with '.'
+    char * cnv = canvas(fr, '.');
     // draw all dots got from shapes
     // - draw '#'
     // display canvas
+    delete [] cnv;
   } catch (...) {
     err = 2;
     std::cerr << "Bad drawing\n";
